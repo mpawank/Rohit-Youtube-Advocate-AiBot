@@ -87,3 +87,5 @@ zstandard==0.23.0
 flask
 flask-cors
 gunicorn
+flask[async]
+hypercorn

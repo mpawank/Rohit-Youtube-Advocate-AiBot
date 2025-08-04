@@ -84,8 +84,7 @@ tzdata==2025.1
 urllib3==2.3.0
 yarl==1.18.3
 zstandard==0.23.0
-flask
+flask[async]
 flask-cors
 gunicorn
-flask[async]
 hypercorn

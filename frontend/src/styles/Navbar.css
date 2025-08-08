@@ -7,11 +7,11 @@
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: all 0.4s step-end;
 }
 
-
 .logo {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
   color: #00ffff;
 }

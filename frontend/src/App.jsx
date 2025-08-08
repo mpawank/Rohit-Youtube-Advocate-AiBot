@@ -17,7 +17,7 @@ const App = () => {
           <div className="logo">YouTube Advisor</div>
           <ul className="nav-links">
             <li><Link to="/">Home</Link></li>
-            
+
             <li><Link to="/content-safety">Content Safety</Link></li>
             <li><Link to="/contract-explainer">Contract Explainer</Link></li>
             <li><Link to="/invoice-generator">Invoice Generator</Link></li>

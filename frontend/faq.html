@@ -1,74 +1,423 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+  <!-- ==================== META & CONFIGURATION ==================== -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>FAQ - YouTube Advisor</title>
+  <title>FAQ - YouTube Advisor | Enhanced Support Center</title>
+  
+  <!-- 🎯 SEO & Accessibility Meta Tags -->
+  <meta name="description" content="Frequently Asked Questions about YouTube Advisor - AI-powered tools for content creators">
+  <meta name="theme-color" content="#ff0000">
+  
+  <!-- External Stylesheets -->
   <link rel="stylesheet" href="styles.css">
+
+  <!-- ==================== INLINE STYLES ==================== -->
   <style>
-    body {font-family: system-ui, sans-serif; background:#fff; color:#111; margin:0;}
-    header, footer {background:#ff0000; color:#fff; padding:1rem; text-align:center;}
-    main {max-width:800px; margin:2rem auto; padding:0 1rem;}
-    h1 {text-align:center; margin-bottom:1.5rem;}
-    .faq-item {border-bottom:1px solid #ddd; padding:1rem 0;}
-    .faq-question {font-weight:600; cursor:pointer; display:flex; justify-content:space-between; align-items:center;}
-    .faq-answer {display:none; margin-top:0.5rem; color:#333;}
-    .faq-item.active .faq-answer {display:block;}
-    .faq-item.active .faq-question span {transform:rotate(180deg);}
-    .faq-question span {transition:transform 0.3s;}
+    /* 🎯 CSS Variable System for Consistent Theming */
+    :root {
+      --primary-color: #ff0000;
+      --secondary-color: #111;
+      --background-color: #fff;
+      --text-color: #111;
+      --border-color: #ddd;
+      --transition-standard: 0.3s ease;
+      --spacing-unit: 1rem;
+    }
+
+    /* 🎯 Base Styles & Typography */
+    body {
+      font-family: system-ui, sans-serif;
+      background: var(--background-color);
+      color: var(--text-color);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* 🎯 Header & Footer Styling */
+    header, footer {
+      background: var(--primary-color);
+      color: #fff;
+      padding: var(--spacing-unit);
+      text-align: center;
+    }
+
+    /* 🎯 Main Content Area */
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 var(--spacing-unit);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    /* 🎯 FAQ Item Structure */
+    .faq-item {
+      border-bottom: 1px solid var(--border-color);
+      padding: var(--spacing-unit) 0;
+      transition: all var(--transition-standard);
+    }
+
+    .faq-item:hover {
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    /* 🎯 FAQ Question Styling */
+    .faq-question {
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      user-select: none;
+    }
+
+    .faq-question:focus {
+      outline: 2px solid var(--primary-color);
+      outline-offset: 2px;
+    }
+
+    /* 🎯 FAQ Answer Styling */
+    .faq-answer {
+      display: none;
+      margin-top: 0.5rem;
+      color: #333;
+      line-height: 1.6;
+      padding: 0.5rem 0;
+    }
+
+    /* 🎯 Active State Animations */
+    .faq-item.active .faq-answer {
+      display: block;
+      animation: fadeInUp 0.3s ease-out;
+    }
+
+    .faq-item.active .faq-question span {
+      transform: rotate(180deg);
+    }
+
+    .faq-question span {
+      transition: transform var(--transition-standard);
+      font-size: 0.8rem;
+    }
+
+    /* 🎯 Navigation Styling */
+    nav {
+      margin-top: 0.5rem;
+    }
+
+    nav a {
+      color: white;
+      margin-right: 10px;
+      text-decoration: none;
+      transition: opacity var(--transition-standard);
+    }
+
+    nav a:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+
+    /* 🎯 Animation Keyframes */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 🎯 Debug Utility Classes */
+    .debug-outline {
+      outline: 1px dashed #ff6ec4;
+    }
+
+    /* 🎯 TODO: Add responsive design improvements */
+    /* 🎯 TODO: Implement prefers-reduced-motion support */
+
+    /* ==================== RESPONSIVE DESIGN ==================== */
+    @media (max-width: 768px) {
+      main {
+        margin: 1rem auto;
+        padding: 0 0.5rem;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .faq-question {
+        font-size: 1.1rem;
+      }
+      
+      nav a {
+        display: inline-block;
+        margin: 0 5px 5px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.75rem;
+      }
+      
+      .faq-question {
+        font-size: 1rem;
+        padding: 0.75rem 0;
+      }
+    }
   </style>
 </head>
+
 <body>
-  <header>
+  <!-- ==================== HEADER SECTION ==================== -->
+  <header role="banner" aria-label="Primary header">
     <h2>YouTube Advisor</h2>
-    <nav>
-      <a href="index.html" style="color:white;margin-right:10px;">Home</a>
-      <a href="about.html" style="color:white;margin-right:10px;">About</a>
-      <a href="contact.html" style="color:white;margin-right:10px;">Contact</a>
-      <a href="faq.html" style="color:white;">FAQ</a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html" aria-label="Go to homepage">Home</a>
+      <a href="about.html" aria-label="Learn more about us">About</a>
+      <a href="contact.html" aria-label="Contact support">Contact</a>
+      <a href="faq.html" aria-label="Frequently asked questions" aria-current="page">FAQ</a>
     </nav>
   </header>
 
-  <main>
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main role="main" aria-label="Frequently Asked Questions">
     <h1>Frequently Asked Questions</h1>
 
-    <div class="faq-item">
-      <div class="faq-question">What is YouTube Advisor? <span>▼</span></div>
-      <div class="faq-answer">YouTube Advisor is an AI-based tool that helps creators handle legal documents, check content safety, and manage invoices.</div>
-    </div>
+    <!-- 🎯 FAQ Section with Enhanced Semantics -->
+    <section class="faq-section" aria-label="FAQ items">
+      <div class="faq-item" role="article" aria-labelledby="faq-1">
+        <div class="faq-question" id="faq-1" role="button" aria-expanded="false" aria-controls="answer-1">
+          What is YouTube Advisor? <span aria-hidden="true">▼</span>
+        </div>
+        <div class="faq-answer" id="answer-1" role="region" aria-labelledby="faq-1">
+          YouTube Advisor is an AI-based tool that helps creators handle legal documents, check content safety, and manage invoices.
+        </div>
+      </div>
 
-    <div class="faq-item">
-      <div class="faq-question">Is it free to use? <span>▼</span></div>
-      <div class="faq-answer">Basic features are free. Premium tools like detailed contract analysis or automated invoicing may require a subscription.</div>
-    </div>
+      <div class="faq-item" role="article" aria-labelledby="faq-2">
+        <div class="faq-question" id="faq-2" role="button" aria-expanded="false" aria-controls="answer-2">
+          Is it free to use? <span aria-hidden="true">▼</span>
+        </div>
+        <div class="faq-answer" id="answer-2" role="region" aria-labelledby="faq-2">
+          Basic features are free. Premium tools like detailed contract analysis or automated invoicing may require a subscription.
+        </div>
+      </div>
 
-    <div class="faq-item">
-      <div class="faq-question">Does it store my data? <span>▼</span></div>
-      <div class="faq-answer">Your uploaded files are processed securely and not stored permanently. Data privacy is a core principle.</div>
-    </div>
+      <div class="faq-item" role="article" aria-labelledby="faq-3">
+        <div class="faq-question" id="faq-3" role="button" aria-expanded="false" aria-controls="answer-3">
+          Does it store my data? <span aria-hidden="true">▼</span>
+        </div>
+        <div class="faq-answer" id="answer-3" role="region" aria-labelledby="faq-3">
+          Your uploaded files are processed securely and not stored permanently. Data privacy is a core principle.
+        </div>
+      </div>
 
-    <div class="faq-item">
-      <div class="faq-question">Can it review YouTube policy changes? <span>▼</span></div>
-      <div class="faq-answer">Yes. The system checks and updates YouTube’s policy summaries regularly to keep creators compliant.</div>
-    </div>
+      <div class="faq-item" role="article" aria-labelledby="faq-4">
+        <div class="faq-question" id="faq-4" role="button" aria-expanded="false" aria-controls="answer-4">
+          Can it review YouTube policy changes? <span aria-hidden="true">▼</span>
+        </div>
+        <div class="faq-answer" id="answer-4" role="region" aria-labelledby="faq-4">
+          Yes. The system checks and updates YouTube's policy summaries regularly to keep creators compliant.
+        </div>
+      </div>
 
-    <div class="faq-item">
-      <div class="faq-question">How can I contact support? <span>▼</span></div>
-      <div class="faq-answer">Use the contact form on the Contact page or email support@youtubeadvisor.ai.</div>
-    </div>
+      <div class="faq-item" role="article" aria-labelledby="faq-5">
+        <div class="faq-question" id="faq-5" role="button" aria-expanded="false" aria-controls="answer-5">
+          How can I contact support? <span aria-hidden="true">▼</span>
+        </div>
+        <div class="faq-answer" id="answer-5" role="region" aria-labelledby="faq-5">
+          Use the contact form on the Contact page or email support@youtubeadvisor.ai.
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer>
+  <!-- ==================== FOOTER SECTION ==================== -->
+  <footer role="contentinfo" aria-label="Site footer">
     <p>© 2025 YouTube Advisor | All Rights Reserved</p>
+    <!-- 🎯 TODO: Add additional footer links -->
+    <!-- 🎯 TODO: Implement social media links -->
   </footer>
 
+  <!-- ==================== JAVASCRIPT FUNCTIONALITY ==================== -->
   <script>
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item=>{
-      item.querySelector('.faq-question').addEventListener('click',()=>{
-        item.classList.toggle('active');
+    // 🎯 Configuration Constants
+    const CONFIG = {
+      debugMode: false,
+      animationDuration: 300,
+      enableSmoothScrolling: true
+    };
+
+    // 🎯 TODO: Add service worker registration
+    // 🎯 TODO: Implement analytics tracking
+
+    /**
+     * 🎯 Initialize FAQ functionality
+     * Sets up click handlers and accessibility features for FAQ items
+     */
+    function initializeFAQ() {
+      const faqItems = document.querySelectorAll('.faq-item');
+      
+      if (faqItems.length === 0) {
+        if (CONFIG.debugMode) {
+          console.warn('🔧 No FAQ items found to initialize');
+        }
+        return;
+      }
+
+      faqItems.forEach((item, index) => {
+        const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+        
+        if (!question || !answer) {
+          if (CONFIG.debugMode) {
+            console.warn('🔧 FAQ item missing question or answer:', item);
+          }
+          return;
+        }
+
+        /**
+         * 🎯 Toggle FAQ item expanded state
+         */
+        function toggleFAQ() {
+          const isCurrentlyActive = item.classList.contains('active');
+          
+          // 🎯 Close all other FAQ items
+          if (!isCurrentlyActive) {
+            faqItems.forEach(otherItem => {
+              if (otherItem !== item && otherItem.classList.contains('active')) {
+                otherItem.classList.remove('active');
+                const otherQuestion = otherItem.querySelector('.faq-question');
+                const otherAnswer = otherItem.querySelector('.faq-answer');
+                if (otherQuestion && otherAnswer) {
+                  otherQuestion.setAttribute('aria-expanded', 'false');
+                  otherAnswer.setAttribute('aria-hidden', 'true');
+                }
+              }
+            });
+          }
+          
+          // 🎯 Toggle current item
+          item.classList.toggle('active');
+          const isNowActive = item.classList.contains('active');
+          
+          // 🎯 Update ARIA attributes
+          question.setAttribute('aria-expanded', isNowActive.toString());
+          answer.setAttribute('aria-hidden', (!isNowActive).toString());
+          
+          if (CONFIG.debugMode) {
+            console.log('🔧 FAQ toggled:', {
+              question: question.textContent.trim(),
+              isActive: isNowActive
+            });
+          }
+        }
+
+        /**
+         * 🎯 Handle keyboard navigation
+         * @param {KeyboardEvent} event - Keyboard event
+         */
+        function handleKeyboard(event) {
+          switch (event.key) {
+            case 'Enter':
+            case ' ':
+              event.preventDefault();
+              toggleFAQ();
+              break;
+            case 'ArrowDown':
+              event.preventDefault();
+              const nextItem = faqItems[index + 1];
+              if (nextItem) {
+                nextItem.querySelector('.faq-question')?.focus();
+              }
+              break;
+            case 'ArrowUp':
+              event.preventDefault();
+              const prevItem = faqItems[index - 1];
+              if (prevItem) {
+                prevItem.querySelector('.faq-question')?.focus();
+              }
+              break;
+            case 'Home':
+              event.preventDefault();
+              faqItems[0]?.querySelector('.faq-question')?.focus();
+              break;
+            case 'End':
+              event.preventDefault();
+              faqItems[faqItems.length - 1]?.querySelector('.faq-question')?.focus();
+              break;
+          }
+        }
+
+        // 🎯 Event Listeners
+        question.addEventListener('click', toggleFAQ);
+        question.addEventListener('keydown', handleKeyboard);
+        
+        // 🎯 Set initial ARIA attributes
+        question.setAttribute('tabindex', '0');
+        question.setAttribute('role', 'button');
+        question.setAttribute('aria-expanded', 'false');
+        question.setAttribute('aria-controls', answer.id);
+        answer.setAttribute('aria-hidden', 'true');
+        
+        // 🎯 Add unique IDs if not present
+        if (!question.id) {
+          question.id = `faq-question-${index + 1}`;
+        }
+        if (!answer.id) {
+          answer.id = `faq-answer-${index + 1}`;
+        }
+        question.setAttribute('aria-controls', answer.id);
       });
-    });
+
+      if (CONFIG.debugMode) {
+        console.log('🚀 FAQ system initialized with', faqItems.length, 'items');
+      }
+    }
+
+    /**
+     * 🎯 Enhanced error handling wrapper
+     */
+    function initializeWithErrorHandling() {
+      try {
+        initializeFAQ();
+        
+        // 🎯 TODO: Add performance monitoring
+        // 🎯 TODO: Implement error tracking
+        
+        if (CONFIG.debugMode) {
+          console.log('✅ FAQ page enhanced successfully');
+        }
+      } catch (error) {
+        console.error('❌ Error initializing FAQ:', error);
+        // 🎯 TODO: Implement fallback behavior
+      }
+    }
+
+    // 🎯 Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeWithErrorHandling);
+    } else {
+      initializeWithErrorHandling();
+    }
+
+    // 🎯 TODO: Add intersection observer for animations
+    // 🎯 TODO: Implement search functionality for FAQs
+    // 🎯 TODO: Add print styles support
   </script>
 </body>
+
 </html>

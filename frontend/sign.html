@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sign In - YouTube Advisor</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {font-family: system-ui, sans-serif; background:#f9f9f9; color:#111; margin:0; display:flex; flex-direction:column; min-height:100vh;}
+    header, footer {background:#ff0000; color:#fff; padding:1rem; text-align:center;}
+    main {flex:1; display:flex; justify-content:center; align-items:center; padding:2rem;}
+    .signin-form {background:#fff; padding:2rem; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1); width:100%; max-width:400px;}
+    h1 {text-align:center; margin-bottom:1.5rem;}
+    label {font-weight:600;}
+    input {width:100%; padding:0.5rem; margin-bottom:1rem; border:1px solid #ccc; border-radius:4px;}
+    button {width:100%; padding:0.75rem; border:none; border-radius:4px; background:#ff0000; color:white; font-weight:600; cursor:pointer;}
+    button:hover {background:#cc0000;}
+    .success-msg {color:green; font-weight:600; display:none; margin-top:1rem; text-align:center;}
+  </style>
+</head>
+<body>
+  <header>
+    <h2>YouTube Advisor</h2>
+    <nav>
+      <a href="index.html" style="color:white;margin-right:10px;">Home</a>
+      <a href="signin.html" style="color:white;">Sign In</a>
+    </nav>
+  </header>
+
+  <main>
+    <form class="signin-form" id="signinForm">
+      <h1>Sign In</h1>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit">Sign In</button>
+      <div class="success-msg" id="successMsg">Signed in successfully!</div>
+    </form>
+  </main>
+
+  <footer>
+    <p>© 2025 YouTube Advisor | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    document.getElementById('signinForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      document.getElementById('successMsg').style.display = 'block';
+      this.reset();
+    });
+  </script>
+</body>
+</html>

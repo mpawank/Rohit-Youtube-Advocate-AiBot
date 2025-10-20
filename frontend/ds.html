@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dashboard - YouTube Advisor</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {font-family: system-ui, sans-serif; background:#f9f9f9; color:#111; margin:0;}
+    header, footer {background:#ff0000; color:#fff; padding:1rem; text-align:center;}
+    main {max-width:1000px; margin:2rem auto; padding:0 1rem;}
+    h1 {text-align:center; margin-bottom:2rem;}
+    .cards {display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.5rem;}
+    .card {background:#fff; border-radius:8px; padding:1rem; box-shadow:0 2px 6px rgba(0,0,0,0.1); text-align:center;}
+    .card h2 {margin:0.5rem 0;}
+    .card p {margin:0; color:#555;}
+  </style>
+</head>
+<body>
+  <header>
+    <h2>YouTube Advisor</h2>
+    <nav>
+      <a href="index.html" style="color:white;margin-right:10px;">Home</a>
+      <a href="dashboard.html" style="color:white;margin-right:10px;">Dashboard</a>
+      <a href="faq.html" style="color:white;margin-right:10px;">FAQ</a>
+      <a href="apply.html" style="color:white;margin-right:10px;">Apply</a>
+      <a href="claim.html" style="color:white;margin-right:10px;">Claim</a>
+      <a href="request-feature.html" style="color:white;margin-right:10px;">Request Feature</a>
+      <a href="contributors.html" style="color:white;margin-right:10px;">Contributors</a>
+      <a href="copyright.html" style="color:white;">Copyright Policy</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Dashboard</h1>
+    <div class="cards">
+      <div class="card">
+        <h2>Users</h2>
+        <p>1,234</p>
+      </div>
+      <div class="card">
+        <h2>Applications</h2>
+        <p>45 Pending</p>
+      </div>
+      <div class="card">
+        <h2>Claims</h2>
+        <p>12 Processed</p>
+      </div>
+      <div class="card">
+        <h2>Feature Requests</h2>
+        <p>8 New</p>
+      </div>
+      <div class="card">
+        <h2>Contributors</h2>
+        <p>5 Active</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 YouTube Advisor | All Rights Reserved</p>
+  </footer>
+</body>
+</html>

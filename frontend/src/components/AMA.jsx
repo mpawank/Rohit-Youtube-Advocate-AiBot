@@ -1,141 +1,40 @@
-import React, { useState } from "react";
+// // src/components/AMA.jsx
+
+import React, { useState, useEffect } from "react";
 import { postData } from "../utils/postData";
 import { useError } from "../context/ErrorContext";
 import ErrorDisplay from "./ErrorDisplay";
 import LoadingSpinner from "./LoadingSpinner";
 import "../styles/CommonStyles.css";
 
-/**
- * YouTube Policy Advisor AMA Component
- * ===================================
- * 
- * This component provides functionality to:
- * - Answer general questions about YouTube policies and content creation
- * - Provide personalized advice from Rohit's knowledge base
- * - Display responses retrieved from backend RAG system
- * 
- * Features:
- * - Text area for question input
- * - Real-time validation and error handling
- * - Responsive loading states
- * - Accessible UI components
- * 
- * @component
- * @example
- * return (
- *   <YouTubeAdvisorAMA />
- * )
- */
-const YouTubeAdvisorAMA = () => {
-  // 🎯 State management for AMA functionality
-  const [question, setQuestion] = useState("");          // User question input
-  const [response, setResponse] = useState("");          // Advisor response from API
-  const [isLoading, setIsLoading] = useState(false);     // Loading state indicator
-  const [error, setError] = useState("");               // Error message state
+export default function AMA() {
+  // Initialize state from localStorage, or with an empty string if nothing is saved.
+  const [question, setQuestion] = useState(() => {
+    const savedQuestion = localStorage.getItem("savedAMAQuestion");
+    return savedQuestion || "";
+  });
 
-  /**
-   * Handle question input changes
-   * Updates the question state as user types
-   * @param {Event} e - Change event from textarea
-   */
-  const handleQuestionChange = (e) => {
-    // 🎨 DEBUG: Question updated - {e.target.value.length} characters
-    setQuestion(e.target.value);
-    // Clear error when user starts typing
-    if (error) setError("");
-  };
+  const [result, setResult] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  /**
-   * Validate user input before submission
-   * Ensures a valid question is provided before processing
-   * @returns {boolean} - Validation result
-   */
-  const validateInput = () => {
-    // 🎯 Check if question is empty or only whitespace
-    if (!question.trim()) {
-      setError("⚠️ Please enter a valid question before submitting.");
-      // 🎨 DEBUG: Input validation failed - no question provided
-      return false;
-    }
-    
-    // Check minimum length
-    if (question.trim().length < 5) {
-      setError(componentId, "Please enter a more detailed question (at least 5 characters).");
-      return false;
-    }
-    
-    // 🎨 DEBUG: Input validation passed
-    clearError(componentId);
-    return true;
-  };
+  // Save the question to localStorage whenever it changes.
+  useEffect(() => {
+    localStorage.setItem("savedAMAQuestion", question);
+  }, [question]);
 
-  /**
-   * Handle form submission
-   * Processes question and sends to backend API for response
-   * @param {Event} e - Form submit event
-   */
   const handleSubmit = async (e) => {
     // 🎯 Prevent default form submission behavior
     e.preventDefault();
-    
-    // 📋 Validate input before processing
-    if (!validateInput()) {
-      return;
+    setLoading(true);
+    const response = await postData("/api/ama/ask", { question });
+    setLoading(false);
+    if (response.error) {
+      setResult(`❌ Error: ${response.error}`);
+    } else {
+      setResult(response.answer || "No answer returned.");
+      setQuestion("");
+      localStorage.removeItem("savedAMAQuestion");
     }
-    
-    // 🚀 Set loading state and clear previous response
-    setLoading(componentId, true);
-    setResponse("");
-    setError(""); // Clear previous errors
-    // 🎨 DEBUG: Starting advisor consultation process
-
-    try {
-      // 🌐 Send request to backend API for advisor response
-      const apiResponse = await postData("/api/ama/ask", { question }, 15000);
-      // 🎨 DEBUG: API response received - {apiResponse ? 'success' : 'error'}
-
-      // 📋 Handle API response
-      if (apiResponse.error) {
-        setError(`❌ ${apiResponse.error}`);
-        // 🎨 DEBUG: API returned error - {apiResponse.error}
-      } else {
-        setResponse(apiResponse.data.answer || "No response received from advisor.");
-        // 🎨 DEBUG: Advisor response received successfully
-      }
-    } catch (error) {
-      // 🚨 Handle network or processing errors
-      setError(`❌ Network Error: ${error.message || "Connection failed"}`);
-      // 🎨 DEBUG: Network error occurred - {error.message}
-    } finally {
-      // 🎯 Always reset loading state
-      setLoading(componentId, false);
-      // 🎨 DEBUG: Advisor consultation process completed
-    }
-  };
-
-  /**
-   * Render response content based on state
-   * Handles loading, empty, and result states
-   * @returns {JSX.Element} - Response content to display
-   */
-  const renderResponse = () => {
-    // 🔄 Show loading indicator during processing
-    if (isLoading(componentId)) {
-      return <LoadingSpinner message="Consulting YouTube Policy Advisor..." />;
-    }
-    
-    // ❌ Show error message if present
-    if (error) {
-      return <div className="error-message">{error}</div>;
-    }
-    
-    // 📋 Show response if available
-    if (response) {
-      return response;
-    }
-    
-    // 🎯 Show placeholder when no response is available
-    return "Your advisor's response will appear in this section...";
   };
 
   // 🎯 TODO: Add question history feature

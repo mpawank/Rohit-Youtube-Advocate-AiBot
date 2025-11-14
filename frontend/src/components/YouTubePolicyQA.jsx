@@ -1,163 +1,37 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { postData } from "../utils/postData";
 import LoadingState from "./LoadingState";
 import ErrorDisplay from "./ErrorDisplay";
 import "../styles/CommonStyles.css";
 
-/**
- * YouTube Policy Advisor Component
- * ===============================
- * 
- * This component provides functionality to:
- * - Answer questions about YouTube policies and community guidelines
- * - Provide insights on monetization, content policies, and best practices
- * - Display policy information retrieved from backend RAG system
- * 
- * Features:
- * - Text area for policy question input
- * - Real-time validation and error handling
- * - Responsive loading states
- * - Accessible UI components
- * 
- * @component
- * @example
- * return (
- *   <YouTubePolicyAdvisor />
- * )
- */
-const YouTubePolicyAdvisor = () => {
-  // 🎯 State management for policy question and answer functionality
-  const [policyQuestion, setPolicyQuestion] = useState("");      // User policy question
-  const [policyAnswer, setPolicyAnswer] = useState("");          // Policy answer from API
-  const [isResearching, setIsResearching] = useState(false);     // Research processing state
-  const [error, setError] = useState("");                       // Error message state
+export default function YouTubePolicyQA() {
+  // Initialize state from localStorage, or with an empty string if nothing is saved.
+  const [question, setQuestion] = useState(() => {
+    const savedQuestion = localStorage.getItem("savedPolicyQuestion");
+    return savedQuestion || "";
+  });
 
-  /**
-   * Handle policy question input changes
-   * Updates the policy question state as user types
-   * @param {Event} e - Change event from textarea
-   */
-  const handlePolicyInputChange = (e) => {
-    // 🎨 DEBUG: Policy question updated - {e.target.value.length} characters
-    setPolicyQuestion(e.target.value);
-    // Clear error when user starts typing
-    if (error) setError("");
-  };
+  const [result, setResult] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  /**
-   * Validate policy input before processing
-   * Ensures a question is provided before research
-   * @returns {boolean} - Validation result
-   */
-  const validatePolicyInput = () => {
-    // 🎯 Check if policy question is empty or only whitespace
-    if (!policyQuestion.trim()) {
-      setError("⚠️ Please enter a question about YouTube policies.");
-      // 🎨 DEBUG: Policy input validation failed - no question provided
-      return false;
-    }
-    
-    // Check minimum length
-    if (policyQuestion.trim().length < 5) {
-      setError(componentId, "Please enter a more detailed question (at least 5 characters).");
-      return false;
-    }
-    
-    // 🎨 DEBUG: Policy input validation passed
-    clearError(componentId);
-    return true;
-  };
+  // Save the question to localStorage whenever it changes.
+  useEffect(() => {
+    localStorage.setItem("savedPolicyQuestion", question);
+  }, [question]);
 
-  /**
-   * Handle policy research submission
-   * Processes policy question and sends to backend API for research
-   * @param {Event} e - Form submit event
-   */
-  const handlePolicyResearch = async (e) => {
-    // 🎯 Prevent default form submission behavior
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // 📋 Validate policy input before processing
-    if (!validatePolicyInput()) {
-      return;
+    setLoading(true);
+    const response = await postData("/api/youtube/policy", { question });
+    setLoading(false);
+    if (response.error) {
+      setResult(`❌ Error: ${response.error}`);
+    } else {
+      setResult(response.answer || "No answer returned.");
+      setQuestion("");
+      localStorage.removeItem("savedPolicyQuestion");
     }
-    
-    // 🚀 Set researching state and clear previous answers
-    setLoading(componentId, true);
-    setPolicyAnswer(""); // Clear previous policy answers
-    setError(""); // Clear previous errors
-    // 🎨 DEBUG: Starting policy research process
-
-    try {
-      // 🌐 Send request to backend API for policy research
-      const researchResponse = await postData("/api/youtube/policy", { question: policyQuestion }, 15000);
-      // 🎨 DEBUG: API response received - {researchResponse ? 'success' : 'error'}
-
-      // 📋 Handle API response
-      if (researchResponse.error) {
-        setError(`❌ ${researchResponse.error}`);
-        // 🎨 DEBUG: API returned error - {researchResponse.error}
-      } else {
-        setPolicyAnswer(researchResponse.data.answer || "No policy information available.");
-        // 🎨 DEBUG: Policy research completed successfully
-      }
-    } catch (researchError) {
-      // 🚨 Handle network or processing errors
-      setError(`❌ System Error: ${researchError.message || "Policy service unavailable"}`);
-      // 🎨 DEBUG: Research error occurred - {researchError.message}
-    } finally {
-      // 🎯 Always reset researching state
-      setLoading(componentId, false);
-      // 🎨 DEBUG: Policy research process completed
-    }
-  };
-
-  /**
-   * Handle retry action
-   */
-  const handleRetry = () => {
-    if (policyQuestion.trim()) {
-      handlePolicyResearch({ preventDefault: () => {} });
-    }
-  };
-
-  /**
-   * Render policy response content based on state
-   * Handles loading, empty, and result states
-   * @returns {JSX.Element} - Policy response content to display
-   */
-  const renderPolicyResponse = () => {
-    // 🔄 Show loading indicator during research
-    if (isResearching) {
-      return <LoadingState message="Researching YouTube policies..." />;
-    }
-    
-    // 🚨 Show error if present
-    if (error) {
-      return <ErrorDisplay message={error} onRetry={handleRetry} />;
-    }
-    
-    // ❌ Show error message if present
-    if (error) {
-      return <div className="error-message">{error}</div>;
-    }
-    
-    // 🚨 Show error message if there's an error
-    if (error) {
-      return <div className="error-message">{error}</div>;
-    }
-    
-    // 📋 Show policy answer if available
-    if (policyAnswer) {
-      return <div className="policy-answer-content">{policyAnswer}</div>;
-    }
-    
-    // 🎯 Show placeholder when no answer is available
-    return (
-      <div className="policy-placeholder">
-        Policy insights and answers will appear here...
-      </div>
-    );
   };
 
   /**

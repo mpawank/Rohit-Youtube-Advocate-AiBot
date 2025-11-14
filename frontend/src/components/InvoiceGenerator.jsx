@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// // src/components/InvoiceGenerator.jsx
+import React, { useState, useEffect } from "react";
 import { postData } from "../utils/postData";
 import { jsPDF } from "jspdf";
 import { useError } from "../context/ErrorContext";
@@ -6,48 +7,28 @@ import ErrorDisplay from "./ErrorDisplay";
 import LoadingSpinner from "./LoadingSpinner";
 import "../styles/CommonStyles.css";
 
-/**
- * Professional Invoice Creator Component
- * =====================================
- * 
- * This component provides functionality to:
- * - Generate professional invoices for content creator services
- * - Collect client/brand information and service details
- * - Include optional GST taxation calculation
- * - Export invoices as PDF documents
- * 
- * Features:
- * - Form-based input collection
- * - Real-time validation and error handling
- * - Responsive loading states
- * - PDF export capability
- * - Accessible UI components
- * 
- * @component
- * @example
- * return (
- *   <ProfessionalInvoiceCreator />
- * )
- */
-const ProfessionalInvoiceCreator = () => {
-  // 🎯 State management for invoice creation functionality
-  const [formData, setFormData] = useState({
-    brand: "",              // Client/brand name
-    service: "",            // Service description
-    amount: "",             // Service amount in INR
-    include_gst: true,      // GST inclusion flag
+export default function InvoiceGenerator() {
+  // Initialize state by reading the saved inputs object from localStorage.
+  const [inputs, setInputs] = useState(() => {
+    const saved = localStorage.getItem("savedInvoiceInputs");
+    // If there's saved data, parse it from JSON; otherwise, use the default state.
+    return saved ? JSON.parse(saved) : {
+      brand: "",
+      service: "",
+      amount: "",
+      include_gst: true,
+    };
   });
   
   const [invoiceOutput, setInvoiceOutput] = useState("");     // Generated invoice text
   const [isGenerating, setIsGenerating] = useState(false);    // Invoice generation state
   const [error, setError] = useState("");                    // Error message state
 
-  /**
-   * Handle form input changes
-   * Updates form data state based on user input
-   * @param {Event} e - Change event from form inputs
-   */
-  const handleFormInputChange = (e) => {
+  // Save the entire inputs object to localStorage whenever it changes.
+  useEffect(() => {
+    localStorage.setItem("savedInvoiceInputs", JSON.stringify(inputs));
+  }, [inputs]);
+  const handleChange = (e) => {
     const { id, value, type, checked } = e.target;
     
     // 🎨 DEBUG: Form input updated - {id}: {type === 'checkbox' ? checked : value}
@@ -86,39 +67,15 @@ const ProfessionalInvoiceCreator = () => {
   const handleInvoiceGeneration = async (e) => {
     // 🎯 Prevent default form submission behavior
     e.preventDefault();
-    
-    // 📋 Validate form data before processing
-    if (!validateFormData()) {
-      return;
-    }
-    
-    // 🚀 Set generation state and clear previous results
-    setLoading(componentId, true);
-    setInvoiceOutput(""); // Clear previous invoice results
-    setError(""); // Clear previous errors
-    // 🎨 DEBUG: Starting invoice generation process
-
-    try {
-      // 🌐 Send request to backend API for invoice generation
-      const apiResponse = await postData("/api/invoice/generate", formData, 15000);
-      // 🎨 DEBUG: API response received - {apiResponse ? 'success' : 'error'}
-
-      // 📋 Handle API response
-      if (apiResponse.error) {
-        setError(`❌ ${apiResponse.error}`);
-        // 🎨 DEBUG: API returned error - {apiResponse.error}
-      } else {
-        setInvoiceOutput(apiResponse.data.invoice_text || "No invoice content generated.");
-        // 🎨 DEBUG: Invoice generated successfully
-      }
-    } catch (processingError) {
-      // 🚨 Handle network or processing errors
-      setError(`❌ System Error: ${processingError.message || "Invoice service unavailable"}`);
-      // 🎨 DEBUG: Processing error occurred - {processingError.message}
-    } finally {
-      // 🎯 Always reset generation state
-      setLoading(componentId, false);
-      // 🎨 DEBUG: Invoice generation process completed
+    setLoading(true);
+    const response = await postData("/api/invoice/generate", inputs);
+    setLoading(false);
+    if (response.error) {
+      setResult(`❌ Error: ${response.error}`);
+    } else {
+      setResult(response.answer || "No answer returned.");
+      setInputs("");
+      localStorage.removeItem("savedInvoiceInputs");
     }
   };
 

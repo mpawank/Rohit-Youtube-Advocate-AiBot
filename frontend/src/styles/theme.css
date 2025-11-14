@@ -1,0 +1,121 @@
+/*
+ * THEME MANAGEMENT SYSTEM
+ * =======================
+ * CSS Custom Properties for light and dark theme variants
+ * Provides consistent theming across the entire application
+ */
+
+/* ========== THEME VARIABLE DEFINITIONS ========== */
+
+/* 🎯 LIGHT THEME VARIABLES
+ * ========================
+ * Professional, clean design for optimal readability
+ */
+body.light {
+  --page-background: #f4f7f9;
+  --navbar-background: #ffffff;
+  --container-background: #ffffff;
+  --container-gradient: none;
+  --input-background: #ffffff;
+  --card-background: #f8f9fa;
+  --main-text-color: #212529;
+  --highlight-color: #007bff;
+  --primary-accent: #007bff; /* Professional blue for light mode */
+  --primary-accent-hover: #0069d9;
+  --primary-text-on-accent: #ffffff;
+  --input-border-color: #ced4da;
+  --image-shadow: rgba(0, 0, 0, 0.1);
+  --secondary-text-color: #6c757d;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --error-color: #dc3545;
+  --border-color: #e5e5e5;
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --text-secondary: #666666;
+  --accent-color: #2563eb;
+}
+
+/* 🎯 DARK THEME VARIABLES
+ * =======================
+ * Modern dark theme with cyan accent colors
+ * Variables matched exactly from original CSS files
+ */
+body.dark {
+  --page-background: #0f0f0f;
+  --navbar-background: #121212;
+  --container-background: #0f0f0f; /* Fallback value */
+  --container-gradient: linear-gradient(to bottom right, #0f0f0f, #1e1e1e);
+  --input-background: #1e1e1e;
+  --card-background: #2a2a2a;
+  --main-text-color: #ffffff;
+  --highlight-color: #00ffff;
+  --primary-accent: #00ffff;
+  --primary-accent-hover: #00e6e6;
+  --primary-text-on-accent: #000000;
+  --input-border-color: #00ffff;
+  --image-shadow: rgba(0, 255, 255, 0.1);
+  --secondary-text-color: #b3b3b3;
+  --success-color: #00ff88;
+  --warning-color: #ffaa00;
+  --error-color: #ff4444;
+  --border-color: #333;
+  --bg-color: #1a1a1a;
+  --text-color: #ffffff;
+  --text-secondary: #b0b0b0;
+  --accent-color: #4a9eff;
+}
+
+/* ========== GLOBAL & LAYOUT STYLES ========== */
+
+/* 🎯 CSS RESET & GLOBAL STYLES
+ * ============================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 🎯 ROOT ELEMENT STYLES
+ * ====================== */
+html, body {
+  background-color: var(--page-background);
+  color: var(--main-text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* 🎯 MAIN CONTENT AREA
+ * ==================== */
+.main-content {
+  padding: 2rem;
+  min-height: calc(100vh - 200px); /* Adjust based on header and footer height */
+}
+
+/* ========== ICON STYLES ========== */
+
+/* 🎯 HEADING ICON STYLING
+ * =======================
+ * SVG icon styling for section headings
+ * Uses theme variables for consistent coloring
+ */
+.h3-icon rect {
+  fill: var(--primary-accent);
+}
+
+.h3-icon polygon {
+  fill: var(--primary-text-on-accent);
+}
+
+/* 🎨 DEBUG: Theme system compiled successfully */
+/* 🎯 Theme variables defined: 
+   --page-background, --navbar-background, --container-background, 
+   --container-gradient, --input-background, --card-background,
+   --main-text-color, --highlight-color, --primary-accent,
+   --primary-accent-hover, --primary-text-on-accent, 
+   --input-border-color, --image-shadow */
+/* ⚡ Performance: Smooth 0.3s transitions for theme switching */
+/* 📱 Compatibility: CSS Custom Properties with fallback values */

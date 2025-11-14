@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Apply - YouTube Advisor</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {font-family: system-ui, sans-serif; background:#fff; color:#111; margin:0;}
+    header, footer {background:#ff0000; color:#fff; padding:1rem; text-align:center;}
+    main {max-width:600px; margin:2rem auto; padding:0 1rem;}
+    h1 {text-align:center; margin-bottom:1.5rem;}
+    form {display:flex; flex-direction:column; gap:1rem;}
+    label {font-weight:600;}
+    input, textarea, select {padding:0.5rem; border:1px solid #ccc; border-radius:4px; width:100%;}
+    button {padding:0.75rem; border:none; border-radius:4px; background:#ff0000; color:white; cursor:pointer; font-weight:600;}
+    button:hover {background:#cc0000;}
+    .success-msg {color:green; font-weight:600; display:none; margin-top:1rem;}
+  </style>
+</head>
+<body>
+  <header>
+    <h2>YouTube Advisor</h2>
+    <nav>
+      <a href="index.html" style="color:white;margin-right:10px;">Home</a>
+      <a href="about.html" style="color:white;margin-right:10px;">About</a>
+      <a href="faq.html" style="color:white;margin-right:10px;">FAQ</a>
+      <a href="apply.html" style="color:white;">Apply</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Apply Now</h1>
+    <form id="applyForm">
+      <label for="name">Full Name</label>
+      <input id="name" name="name" type="text" required>
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required>
+
+      <label for="role">Role Interested In</label>
+      <select id="role" name="role" required>
+        <option value="">Select a role</option>
+        <option value="content-creator">Content Creator</option>
+        <option value="legal-assistant">Legal Assistant</option>
+        <option value="marketing">Marketing</option>
+        <option value="support">Support</option>
+      </select>
+
+      <label for="experience">Experience / Notes</label>
+      <textarea id="experience" name="experience" rows="4"></textarea>
+
+      <button type="submit">Submit Application</button>
+      <div class="success-msg" id="successMsg">Your application has been submitted successfully!</div>
+    </form>
+  </main>
+
+  <footer>
+    <p>© 2025 YouTube Advisor | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    document.getElementById('applyForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      // Simple form validation can be enhanced here
+      document.getElementById('successMsg').style.display = 'block';
+      this.reset();
+    });
+  </script>
+</body>
+</html>

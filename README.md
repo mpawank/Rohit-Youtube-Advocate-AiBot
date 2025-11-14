@@ -56,6 +56,156 @@ This repository contains an enhanced version of the YouTube Advocate AI Bot with
 - **Helpful Suggestions**: Contextual tips for resolving common issues
 - **Loading States**: Visual feedback during API requests
 - **Consistent UI**: Uniform error handling across all components
+### Repository Structure
+
+```
+📁 bharat-bhakti-yatra/
+├── 📁 .github/
+│   ├── 📁 CODEOWNERS/
+│   │   └── 📄 codeowners.md
+│   ├── 📁 DEPENDABOTS/
+│   │   └── 📄 dependabot.yml
+│   ├── 📁 FUNDING/
+│   │   └── 📄 FUNDING.yml
+│   ├── 📁 ISSUE_TEMPLATE/
+│   │   ├── 📄 bug_report.md
+│   │   ├── 📄 config.yml
+│   │   ├── 📄 documentation.md
+│   │   ├── 📄 feature_request.md
+│   │   ├── 📄 question.md
+│   │   └── 📄 security_vulnerability.yml
+│   ├── 📁 SUPPORT/
+│   │   └── 📄 support.yml
+│   └── 📁 workflows/
+│       ├── 📄 autoComment-PrMerge.yml
+│       ├── 📄 autoGithub-IssuePrTags.yml
+│       ├── 📄 ContributorLeaderboard.yml
+│       ├── 📄 issueReminder.yml
+│       ├── 📄 PrReminder.yml
+│       ├── 📄 SecurityCheck.yml
+│       └── 📄 welcome.yml
+├── 📁 Backend/
+│   ├── 📁 config/
+│   │   └── 📄 cors.js
+│   ├── 📁 controllers/
+│   │   └── 📄 auth.controller.js
+│   ├── 📁 database/
+│   │   └── 📄 connectDB.js
+│   ├── 📁 meta/
+│   │   ├── 📄 LayoutMetaData.jsx
+│   │   └── 📄 metadata.json
+│   ├── 📁 middlewares/
+│   │   ├── 📄 asyncHandler.js
+│   │   ├── 📄 email.config.js
+│   │   ├── 📄 email.js
+│   │   ├── 📄 emailTemplates.js
+│   │   ├── 📄 globalErrorHandler.js
+│   │   └── 📄 verifyToken.js
+│   ├── 📁 models/
+│   │   └── 📄 user.model.js
+│   ├── 📁 routers/
+│   │   └── 📄 auth.route.js
+│   └── 📁 utils/
+│       ├── 📄 ApiError.js
+│       ├── 📄 ApiResponse.js
+│       └── 📄 generateTokenAndSetCookie.js
+│   ├── 📄 .env.sample
+│   ├── 📄 .gitignore
+│   ├── 📄 index.js
+│   ├── 📄 package.json
+│   └── 📄 pnpm-lock.yaml
+├── 📁 Frontend/
+│   ├── 📁 public/
+│   │   ├── 📁 assets/
+│   │   │   ├── 📁 authIcons/
+│   │   │   │   ├── 📄 github.png
+│   │   │   │   └── 📄 google.png
+│   │   │   ├── 📁 hinduism/
+│   │   │   │   ├── 📁 PrivacyPolicy/
+│   │   │   │   │   └── 📄 image.png
+│   │   │   │   ├── 📁 TermsAndCondition/
+│   │   │   │   │   └── 📄 image2.jpg
+│   │   │   │   ├── 📁 home/
+│   │   │   │   │   ├── 📄 aarti.jpg
+│   │   │   │   │   ├── 📄 festival.jpg
+│   │   │   │   │   ├── 📄 image_temple_bg.jpg
+│   │   │   │   │   └── 📄 prayer.jpg
+│   │   │   │   └── 📄 OM.jpg
+│   │   │   └── 📄 favicon.png
+│   │   └── 📄 vite.svg
+│   ├── 📁 src/
+│   │   ├── 📁 components/
+│   │   │   ├── 📁 blog/
+│   │   │   │   └── 📄 BlogWrapper.jsx
+│   │   │   ├── 📁 common/
+│   │   │   │   ├── 📄 Footer.jsx
+│   │   │   │   ├── 📄 Header.jsx
+│   │   │   │   └── 📄 Layout.jsx
+│   │   │   ├── 📁 firebase/
+│   │   │   │   └── 📄 firebaseConfig.jsx
+│   │   │   ├── 📁 home/
+│   │   │   │   ├── 📁 sections/
+│   │   │   │   │   ├── 📄 CommunitySection.jsx
+│   │   │   │   │   ├── 📄 FeatureCards.jsx
+│   │   │   │   │   ├── 📄 HeroSection.jsx
+│   │   │   │   │   ├── 📄 SacredRitualsSection.jsx
+│   │   │   │   │   └── 📄 SacredVideosSection.jsx
+│   │   │   │   └── 📄 HomeWrapper.jsx
+│   │   │   ├── 📁 meta/
+│   │   │   │   ├── 📄 LayoutMetaData.jsx
+│   │   │   │   └── 📄 metadata.json
+│   │   │   ├── 📁 ui/
+│   │   │   │   ├── 📄 button.jsx
+│   │   │   │   ├── 📄 card.jsx
+│   │   │   │   ├── 📄 input.jsx
+│   │   │   │   └── 📄 label.jsx
+│   │   │   ├── 📁 users/
+│   │   │   │   └── 📄 userProfile.jsx
+│   │   │   ├── 📁 utils/
+│   │   │   │   ├── 📄 date.js
+│   │   │   │   ├── 📄 LoadingSpinner.jsx
+│   │   │   │   └── 📄 PasswordStrengthMeter.jsx
+│   │   │   ├── 📄 PrivacyPolicy.jsx
+│   │   │   ├── 📄 Pujas.jsx
+│   │   │   └── 📄 TermsAndConditions.jsx
+│   │   ├── 📁 lib/
+│   │   │   └── 📄 utils.js
+│   │   ├── 📁 pages/
+│   │   │   ├── 📁 auth/
+│   │   │   │   ├── 📄 EmailVerificationPage.jsx
+│   │   │   │   ├── 📄 ForgotPasswordPage.jsx
+│   │   │   │   ├── 📄 Login.jsx
+│   │   │   │   ├── 📄 ResetPasswordPage.jsx
+│   │   │   │   └── 📄 Signup.jsx
+│   │   │   └── 📄 Home.jsx
+│   │   ├── 📁 store/
+│   │   │   └── 📄 authStore.js
+│   │   ├── 📁 styles/
+│   │   │   ├── 📄 _mixins.scss
+│   │   │   ├── 📄 _variables.scss
+│   │   │   └── 📄 App.scss
+│   │   ├── 📄 App.jsx
+│   │   ├── 📄 index.css
+│   │   └── 📄 main.jsx
+│   ├── 📄 .gitignore
+│   ├── 📄 components.json
+│   ├── 📄 eslint.config.js
+│   ├── 📄 index.html
+│   ├── 📄 jsconfig.json
+│   ├── 📄 package.json
+│   ├── 📄 pnpm-lock.yaml
+│   ├── 📄 postcss.config.mjs
+│   ├── 📄 tailwind.config.js
+│   ├── 📄 vercel.json
+│   └── 📄 vite.config.js
+├── 📄 .gitattributes
+├── 📄 .gitignore
+├── 📄 .prettierrc
+├── 📄 CODE_OF_CONDUCT.md
+├── 📄 CONTRIBUTING.md
+├── 📄 LICENSE
+├── 📄 README.md
+└── 📄 SECURITY.md
 
 ## Installation
 

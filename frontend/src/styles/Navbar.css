@@ -1,49 +1,265 @@
+
+/* ===== NAVBAR COMPONENT ===== */
 .navbar {
+  --navbar-padding-x: 32px;
+  --navbar-padding-y: 16px;
+  
+
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: var(--navbar-background);
-  padding: 16px 32px;
+  padding: var(--navbar-padding-y) var(--navbar-padding-x);
   position: sticky;
   top: 0;
   z-index: 100;
+  /* Enhanced styling for better visual hierarchy */
 }
 
 
-.logo {
+/* Logo styling component */
+.brand-logo {
+
   font-size: 1.5rem;
   font-weight: bold;
   color: var(--primary-accent);
+  /* Logo styling remains consistent */
 }
 
+
+/* Navigation Links */
 .nav-links {
+
+
   list-style: none;
   display: flex;
   gap: 1.5rem;
   align-items: center;
+  /* Navigation links layout */
 }
 
-.nav-links li a {
+.navigation-links li a {
   color: var(--main-text-color);
   text-decoration: none;
   font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
-.nav-links li a:hover {
+.navigation-links li a:hover {
   color: var(--primary-accent);
+  transform: translateY(-1px); /* Subtle hover effect */
 }
 
-.main-content {
+.nav-links li a:focus {
+  outline: 2px solid var(--primary-accent);
+  outline-offset: 2px;
+}
+
+/* Active link styling */
+.nav-links li a.active {
+  color: var(--primary-accent);
+  background-color: rgba(0, 127, 255, 0.15);
+  font-weight: 600;
+}
+
+/* Focus styles for accessibility */
+.nav-links li a:focus,
+.theme-toggle-nav:focus,
+.hamburger:focus {
+  outline: 2px solid var(--primary-accent);
+  outline-offset: 2px;
+}
+
+/* Main content area styling */
+.main-content-area {
   padding: 2rem;
+  /* Content padding maintained */
 }
 
-.theme-toggle-nav {
+/* Theme toggle button in navigation */
+.theme-switcher {
+
   background: none;
   border: none;
   cursor: pointer;
   font-size: 1.6rem;
   color: var(--main-text-color);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
-.theme-toggle-nav:hover { 
-  color: var(--primary-accent); 
+
+
+/* Hamburger Menu */
+.hamburger {
+  --hamburger-size: 2rem;
+  
+
+  display: none;
+  font-size: var(--hamburger-size);
+  background: none;
+  border: none;
+  color: var(--main-text-color);
+  cursor: pointer;
+  z-index: 201;
+
+  transition: color 0.2s ease-in-out;
+}
+
+.mobile-menu-toggle:hover {
+  color: var(--primary-accent);
+  transform: rotate(90deg); /* Added rotation effect */
+}
+
+.theme-toggle-nav:focus {
+  outline: 2px solid var(--primary-accent);
+  outline-offset: 2px;
+}
+
+
+/* Main Content Area */
+.main-content {
+  padding: 2rem;
+}
+
+/* Skip to content link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary-accent);
+  color: var(--primary-text-on-accent);
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 0 0 4px 4px;
+  z-index: 1000;
+  transform: translateY(0);
+  transition: transform 0.3s;
+}
+
+.skip-link:focus {
+  transform: translateY(40px);
+  outline: 2px solid var(--primary-text-on-accent);
+  outline-offset: 2px;
+}
+
+/* Hamburger menu button */
+.hamburger {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--main-text-color);
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.hamburger:hover {
+  background-color: rgba(0, 127, 255, 0.1);
+}
+
+.hamburger:focus {
+  outline: 2px solid var(--primary-accent);
+  outline-offset: 2px;
+}
+
+/* ===== MOBILE RESPONSIVE STYLES ===== */
+@media (max-width: 768px) {
+  .navbar {
+    --navbar-padding-x: 24px;
+    --navbar-padding-y: 12px;
   }
+  
+  .hamburger {
+    display: flex;
+    /* Show hamburger on mobile */
+  }
+
+
+  .nav-links {
+    --mobile-nav-width: 250px;
+    --mobile-nav-padding: 2rem;
+    
+
+    position: fixed;
+    top: 0;
+    right: -100%;
+    height: 100vh;
+    width: var(--mobile-nav-width);
+    background: var(--navbar-background);
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: var(--mobile-nav-padding);
+    gap: 1.5rem;
+    transition: right 0.3s ease-in-out;
+    z-index: 200;
+    /* Mobile menu styling */
+  }
+
+  .navigation-links.mobile-active {
+    right: 0;
+    /* Active mobile menu state */
+  }
+
+  .navigation-links li a {
+    font-size: 1.2rem;
+    /* Larger text for mobile */
+  }
+
+  .theme-switcher {
+    font-size: 1.8rem;
+    /* Larger icon for mobile */
+  }
+  
+  /* Additional mobile optimization */
+  .navbar-container {
+    padding: 12px 24px; /* Adjusted padding for mobile */
+  }
+}
+
+/* ===== ACCESSIBILITY ENHANCEMENTS ===== */
+@media (prefers-reduced-motion: reduce) {
+  .nav-links,
+  .nav-links li a,
+  .theme-toggle-nav,
+  .hamburger,
+  .skip-link {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .nav-links li a:hover,
+  .theme-toggle-nav:hover,
+  .hamburger:hover {
+    text-decoration: underline;
+  }
+
+  .nav-links li a:focus,
+  .theme-toggle-nav:focus,
+  .hamburger:focus {
+    outline: 3px solid;
+  }
+
+  .skip-link {
+    border: 2px solid;
+  }
+}

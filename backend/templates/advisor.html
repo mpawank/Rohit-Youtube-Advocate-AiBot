@@ -4,553 +4,239 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rohit Advocate - Creator Legal AI Assistant</title>
-  <!-- Favicon and App Icons -->
+  <title>Rohit Advocate - Creator Legal AI Assistant | Enhanced Version</title>
+  <meta name="description" content="Legal AI assistant for content creators - contract reviews, copyright clarity, and YouTube policy support">
+  <meta name="theme-color" content="#3b82f6">
   <link rel="icon" href="/backend/static/Images/favicon.png" type="image/png" />
-
-  <script>
-    async function sendMessage() {
-      const message = document.getElementById("userInput").value;
-      const res = await fetch("/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message }),
-      });
-      const data = await res.json();
-      document.getElementById("response").innerText = data.response;
-    }
-  </script>
-  <!--jspdf-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
   <!-- FontAwesome CDN -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <style>
-    /* Use Inter font globally */
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-
-    /* Custom gradient background */
-    .hero-gradient {
-      background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
-    }
-
-    /* Animated button hover effect */
-    .btn-primary {
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
-      background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
-    }
-
-    /* Enhanced result cards */
-    .result-card {
-      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-      border: 2px solid #e2e8f0;
-      transition: all 0.3s ease;
-    }
-
-    .result-card:hover {
-      border-color: #3b82f6;
-      transform: translateY(-1px);
-    }
+    body { font-family: 'Inter', sans-serif; }
+    .hero-gradient { background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%); }
+    .primary-button { background: linear-gradient(135deg, #2563eb, #1d4ed8); transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); }
+    .primary-button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4); background: linear-gradient(135deg, #1d4ed8, #1e3a8a); }
+    .result-container { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border: 2px solid #e2e8f0; transition: all 0.3s ease; }
+    .result-container:hover { border-color: #3b82f6; transform: translateY(-1px); }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in { animation: fadeInUp 0.5s ease-out; }
   </style>
 </head>
 
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex flex-col">
-  <!-- Header -->
-  <header class="bg-white shadow-xl sticky top-0 z-50 border-b-4 border-blue-600" role="banner"
-    aria-label="Primary navigation">
+  <!-- ==================== HEADER ==================== -->
+  <header class="bg-white shadow-xl sticky top-0 z-50 border-b-4 border-blue-600">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-      <!-- Logo and site title -->
       <div class="flex items-center space-x-3">
-        <img src="/backend/static/Images/rohit_pfp.jpg" alt="Rohit Advocate logo"
-          class="w-12 h-12 rounded-full shadow-lg border-2 border-blue-600" width="48" height="48" />
+        <img src="/backend/static/Images/rohit_pfp.jpg" alt="Rohit Advocate logo" class="w-12 h-12 rounded-full shadow-lg border-2 border-blue-600" />
         <h1 class="text-2xl font-bold text-blue-700">Rohit Advocate</h1>
       </div>
-
-      <!-- Desktop Navigation -->
-      <nav class="hidden xl:flex space-x-8 text-gray-700 font-semibold" aria-label="Primary">
-        <a href="#contract" class="hover:text-blue-600 transition-all duration-200 hover:scale-105">Explain My
-          Contract</a>
-        <a href="#content-safety" class="hover:text-blue-600 transition-all duration-200 hover:scale-105">Content Safety
-          Checker</a>
+      <nav class="hidden xl:flex space-x-8 text-gray-700 font-semibold">
+        <a href="#contract" class="hover:text-blue-600 transition-all duration-200 hover:scale-105">Explain My Contract</a>
+        <a href="#content-safety" class="hover:text-blue-600 transition-all duration-200 hover:scale-105">Content Safety Checker</a>
         <a href="#invoice" class="hover:text-blue-600 transition-all duration-200 hover:scale-105">Invoice Generator</a>
-        <a href="#policy-guard" class="hover:text-blue-600 transition-all duration-200 hover:scale-105">YouTube Policy
-          Guard</a>
+        <a href="#policy-guard" class="hover:text-blue-600 transition-all duration-200 hover:scale-105">YouTube Policy Guard</a>
         <a href="#ama" class="hover:text-blue-600 transition-all duration-200 hover:scale-105">Ask Rohit Anything</a>
       </nav>
-
-      <!-- Toggle Button -->
-      <button id="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu"
-        class="xl:hidden text-gray-700 focus:outline-none focus:ring-2 z-50 relative">
+      <button id="mobile-menu-button" aria-label="Toggle menu" class="xl:hidden text-gray-700 focus:outline-none">
         <i id="menu-icon" class="fas fa-bars fa-lg"></i>
       </button>
     </div>
 
-    <!-- Backdrop -->
-    <div id="menu-backdrop"
-      class="fixed inset-0 bg-black bg-opacity-50 hidden transition-opacity duration-300 ease-in-out z-40"></div>
-
-    <!-- Mobile Menu -->
-    <nav id="mobile-menu"
-      class="fixed top-0 left-0 w-3/4 max-w-sm h-full bg-white shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out xl:hidden z-50"
-      aria-label="Mobile navigation">
-      <div class="px-4 py-5 border-b border-gray-200 flex justify-between items-center">
-        <h2 class="text-lg font-bold text-gray-800">Menu</h2>
+    <div id="menu-backdrop" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40"></div>
+    <nav id="mobile-menu" class="fixed top-0 left-0 w-3/4 max-w-sm h-full bg-white shadow-lg transform -translate-x-full z-50">
+      <div class="px-4 py-5 border-b flex justify-between items-center">
+        <h2 class="text-lg font-bold text-gray-800">Navigation Menu</h2>
         <button id="close-menu-button" aria-label="Close menu" class="text-gray-600 hover:text-red-500">
           <i class="fas fa-times fa-lg"></i>
         </button>
       </div>
       <div class="py-4">
         <a href="#contract" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 font-semibold">Explain My Contract</a>
-        <a href="#content-safety" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 font-semibold">Content Safety
-          Checker</a>
+        <a href="#content-safety" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 font-semibold">Content Safety Checker</a>
         <a href="#invoice" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 font-semibold">Invoice Generator</a>
-        <a href="#policy-guard" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 font-semibold">YouTube Policy
-          Guard</a>
+        <a href="#policy-guard" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 font-semibold">YouTube Policy Guard</a>
         <a href="#ama" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 font-semibold">Ask Rohit Anything</a>
       </div>
     </nav>
   </header>
 
-  <!-- Main content -->
+  <!-- ==================== MAIN CONTENT ==================== -->
   <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-20">
     <!-- Hero Section -->
-    <section class="text-center max-w-3xl mx-auto hero-gradient rounded-2xl p-8 text-white shadow-2xl">
-      <img src="/backend/static/Images/rohit_pfp.jpg" alt="Portrait of Rohit Negi"
-        class="mx-auto rounded-full mb-6 shadow-2xl border-4 border-white" width="200" height="200" />
+    <section class="text-center max-w-3xl mx-auto hero-gradient rounded-2xl p-8 text-white shadow-2xl animate-fade-in">
+      <img src="/backend/static/Images/rohit_pfp.jpg" alt="Portrait of Rohit Negi" class="mx-auto rounded-full mb-6 shadow-2xl border-4 border-white" width="200" height="200" />
       <h2 class="text-4xl font-extrabold mb-4">Rohit Advocate</h2>
-      <p class="text-lg opacity-90">
-        The legal AI assistant built for content creators. From contract reviews to copyright clarity and YouTube policy
-        support — we empower digital voices with accessible legal help.
-      </p>
-
+      <p class="text-lg opacity-90">The legal AI assistant built for content creators. From contract reviews to copyright clarity and YouTube policy support — empowering digital voices with accessible legal help.</p>
     </section>
 
-    <!-- Explain My Contract Section -->
-    <section id="contract"
-      class="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100 hover:shadow-3xl transition-all duration-300"
-      aria-labelledby="contract-heading">
-      <h3 id="contract-heading" class="text-3xl font-bold text-blue-700 mb-6 flex items-center space-x-3">
+    <!-- Contract Section -->
+    <section id="contract" class="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100 hover:shadow-3xl transition-all duration-300">
+      <h3 class="text-3xl font-bold text-blue-700 mb-6 flex items-center space-x-3">
         <i class="fas fa-file-contract text-blue-600"></i>
         <span>Explain My Contract</span>
       </h3>
       <form id="contract-form" class="space-y-6">
-        <div>
-          <label for="contract-text" class="block text-gray-700 font-semibold mb-3 text-lg">Paste your contract
-            text</label>
-          <textarea id="contract-text" placeholder="Paste contract text here..." rows="6"
-            class="w-full rounded-xl border-2 border-gray-300 p-4 resize-y focus:outline-none focus:ring-4 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"></textarea>
-        </div>
-        <button type="submit" class="btn-primary text-white px-8 py-4 rounded-xl font-bold text-lg w-full sm:w-auto">
-          <i class="fas fa-magic mr-2"></i>
-          <strong>SIMPLIFY CONTRACT</strong>
+        <textarea id="contract-text" placeholder="Paste contract text here..." rows="6"
+          class="w-full rounded-xl border-2 border-gray-300 p-4 resize-y focus:outline-none focus:ring-4 focus:ring-blue-500 transition-all duration-200"></textarea>
+        <button type="submit" class="primary-button text-white px-8 py-4 rounded-xl font-bold text-lg w-full sm:w-auto">
+          <i class="fas fa-magic mr-2"></i>ANALYZE CONTRACT
         </button>
       </form>
-      <div id="contract-result"
-        class="result-card mt-8 rounded-xl p-6 text-gray-800 whitespace-pre-wrap min-h-[120px] font-medium"
-        aria-live="polite"></div>
+      <div id="contract-result" class="result-container mt-8 rounded-xl p-6 text-gray-800 whitespace-pre-wrap min-h-[120px] font-medium"></div>
     </section>
 
-    <!-- Content Safety Checker Section -->
-    <section id="content-safety"
-      class="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100 hover:shadow-3xl transition-all duration-300"
-      aria-labelledby="content-safety-heading">
-      <h3 id="content-safety-heading" class="text-3xl font-bold text-blue-700 mb-6 flex items-center space-x-3">
-        <i class="fas fa-shield-alt text-blue-600"></i>
-        <span>Content Safety Checker</span>
-      </h3>
-      <form id="content-safety-form" class="space-y-6">
-        <div>
-          <label for="script-text" class="block text-gray-700 font-semibold mb-3 text-lg">Paste your video script or
-            content text</label>
-          <textarea id="script-text" placeholder="Paste your script or content here..." rows="6"
-            class="w-full rounded-xl border-2 border-gray-300 p-4 resize-y focus:outline-none focus:ring-4 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"></textarea>
-        </div>
-        <button type="submit" class="btn-primary text-white px-8 py-4 rounded-xl font-bold text-lg w-full sm:w-auto">
-          <i class="fas fa-check-circle mr-2"></i>
-          <strong>CHECK CONTENT SAFETY</strong>
-        </button>
-      </form>
-      <div id="content-safety-result"
-        class="result-card mt-8 rounded-xl p-6 text-gray-800 whitespace-pre-wrap min-h-[120px] font-medium"
-        aria-live="polite"></div>
-    </section>
-
-    <!-- Smart Invoice Generator Section -->
-    <section id="invoice"
-      class="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100 hover:shadow-3xl transition-all duration-300"
-      aria-labelledby="invoice-heading">
-      <h3 id="invoice-heading" class="text-3xl font-bold text-blue-700 mb-6 flex items-center space-x-3">
+    <!-- Invoice Section -->
+    <section id="invoice" class="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100 hover:shadow-3xl transition-all duration-300">
+      <h3 class="text-3xl font-bold text-blue-700 mb-6 flex items-center space-x-3">
         <i class="fas fa-file-invoice-dollar text-blue-600"></i>
         <span>Smart Invoice Generator</span>
       </h3>
       <form id="invoice-form" class="space-y-6 max-w-xl">
-        <div>
-          <label for="brand-name" class="block text-gray-700 font-semibold mb-3 text-lg">Brand / Sponsor Name</label>
-          <input type="text" id="brand-name" placeholder="Enter brand or sponsor name" required
-            class="w-full rounded-xl border-2 border-gray-300 p-4 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200" />
-        </div>
-        <div>
-          <label for="service-desc" class="block text-gray-700 font-semibold mb-3 text-lg">Service Description</label>
-          <input type="text" id="service-desc" placeholder="E.g., Sponsored video, shoutout" required
-            class="w-full rounded-xl border-2 border-gray-300 p-4 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200" />
-        </div>
-        <div>
-          <label for="amount" class="block text-gray-700 font-semibold mb-3 text-lg">Amount (INR)</label>
-          <input type="number" id="amount" min="0" step="0.01" placeholder="Enter amount in INR" required
-            class="w-full rounded-xl border-2 border-gray-300 p-4 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200" />
-        </div>
-        <div>
-          <label for="include-gst" class="inline-flex items-center space-x-3">
-            <input type="checkbox" id="include-gst" checked
-              class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-5 h-5" />
-            <span class="text-gray-700 font-semibold text-lg">Include GST (18%)</span>
-          </label>
-        </div>
-        <button type="submit" class="btn-primary text-white px-8 py-4 rounded-xl font-bold text-lg w-full sm:w-auto">
-          <i class="fas fa-file-invoice mr-2"></i>
-          <strong>GENERATE INVOICE</strong>
+        <input type="text" id="brand-name" placeholder="Brand / Sponsor Name" required class="w-full rounded-xl border-2 p-4"/>
+        <input type="text" id="service-desc" placeholder="Service Description" required class="w-full rounded-xl border-2 p-4"/>
+        <input type="number" id="amount" placeholder="Amount (INR)" min="0" step="0.01" required class="w-full rounded-xl border-2 p-4"/>
+        <label class="inline-flex items-center">
+          <input type="checkbox" id="include-gst" checked class="rounded border-gray-300 w-5 h-5"/> Include GST (18%)
+        </label>
+        <button type="submit" class="primary-button text-white px-8 py-4 rounded-xl font-bold text-lg w-full sm:w-auto">
+          <i class="fas fa-file-invoice mr-2"></i>CREATE INVOICE
         </button>
       </form>
-      <div id="invoice-result"
-        class="result-card mt-8 rounded-xl p-6 text-gray-800 whitespace-pre-wrap min-h-[160px] font-mono"
-        aria-live="polite"></div>
+      <div id="invoice-result" class="result-container mt-8 rounded-xl p-6 text-gray-800 whitespace-pre-wrap min-h-[160px] font-mono"></div>
     </section>
 
-    <!-- YouTube Policy Guard Section -->
-    <section id="policy-guard"
-      class="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100 hover:shadow-3xl transition-all duration-300"
-      aria-labelledby="policy-guard-heading">
-      <h3 id="policy-guard-heading" class="text-3xl font-bold text-blue-700 mb-6 flex items-center space-x-3">
-        <i class="fas fa-user-shield text-blue-600"></i>
-        <span>YouTube Policy Guard</span>
-      </h3>
-      <form id="policy-guard-form" class="space-y-6 max-w-3xl">
-        <div>
-          <label for="policy-question" class="block text-gray-700 font-semibold mb-3 text-lg">Ask about YouTube policies
-            or demonetization</label>
-          <input type="text" id="policy-question" placeholder="E.g., Why was my video demonetized?" required
-            class="w-full rounded-xl border-2 border-gray-300 p-4 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200" />
-        </div>
-        <button type="submit" class="btn-primary text-white px-8 py-4 rounded-xl font-bold text-lg w-full sm:w-auto">
-          <i class="fas fa-search mr-2"></i>
-          <strong>GET POLICY EXPLANATION</strong>
-        </button>
-      </form>
-      <div id="policy-guard-result"
-        class="result-card mt-8 rounded-xl p-6 text-gray-800 whitespace-pre-wrap min-h-[120px] font-medium"
-        aria-live="polite"></div>
-    </section>
-
-    <!-- Ask Rohit Anything Section -->
-    <section id="ama"
-      class="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100 hover:shadow-3xl transition-all duration-300"
-      aria-labelledby="ama-heading">
-      <h3 id="ama-heading" class="text-3xl font-bold text-blue-700 mb-6 flex items-center space-x-3">
-        <i class="fas fa-comments text-blue-600"></i>
-        <span>Ask Rohit Anything (AMA)</span>
-      </h3>
-      <form id="ama-form" class="space-y-6 max-w-3xl">
-        <div>
-          <label for="ama-question" class="block text-gray-700 font-semibold mb-3 text-lg">Ask your question</label>
-          <textarea id="ama-question" placeholder="E.g., How much should I charge for 10k views?" rows="4" required
-            class="w-full rounded-xl border-2 border-gray-300 p-4 resize-y focus:outline-none focus:ring-4 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"></textarea>
-        </div>
-        <button type="submit" class="btn-primary text-white px-8 py-4 rounded-xl font-bold text-lg w-full sm:w-auto">
-          <i class="fas fa-question-circle mr-2"></i>
-          <strong>ASK ROHIT</strong>
-        </button>
-      </form>
-      <div id="ama-result"
-        class="result-card mt-8 rounded-xl p-6 text-gray-800 whitespace-pre-wrap min-h-[120px] font-medium"
-        aria-live="polite"></div>
-    </section>
   </main>
 
-  <!--Footer-->
-  <!-- Footer -->
-  <footer class="bg-white border-t-4 border-blue-600 mt-20 shadow-xl">
-    <div class="max-w-7xl mx-auto px-4 py-10 text-center text-gray-600 space-y-4">
-      <p class="text-lg font-semibold">
-        © 2024 Rohit Advocate. Powered by M Pawan Kumar.
-      </p>
-
-      <p class="text-sm max-w-2xl mx-auto text-gray-500">
-        Our mission is to be the legal guardian for every YouTuber and content creator facing challenges in the digital
-        world.
-        From copyright strikes to unfair demonetization — we're here to help, guide, and protect.
-      </p>
-
-      <div class="flex justify-center items-center space-x-6 mt-4">
-        <a href="https://x.com/yourusername" target="_blank" rel="noopener noreferrer" class="hover:text-black">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-5 w-5 inline" viewBox="0 0 1200 1227">
-            <path d="M714 585l465-585H927L600 444 273 0H0l495 642L12 1227h273l336-480 336 480h273L714 585z" />
-          </svg>
-          <span class="ml-1">X.com</span>
-        </a>
-
-
-        <a href="https://www.linkedin.com/in/m-pawan-kumar-b3978424b/" target="_blank" rel="noopener noreferrer"
-          class="hover:text-blue-700">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="currentColor" viewBox="0 0 24 24">
-            <path
-              d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.4c-.97 0-1.5-.7-1.5-1.5s.54-1.5 1.5-1.5 1.5.7 1.5 1.5-.54 1.5-1.5 1.5zm13.5 11.4h-3v-5.6c0-1.34-.5-2.26-1.74-2.26-1.01 0-1.6.68-1.86 1.33-.1.23-.13.55-.13.87v5.66h-3s.04-9.18 0-10.13h3v1.43c.4-.62 1.11-1.5 2.7-1.5 1.97 0 3.45 1.29 3.45 4.07v6.13z" />
-          </svg>
-          <span class="ml-1">LinkedIn</span>
-        </a>
-
-        <a href="https://github.com/mpawank" target="_blank" rel="noopener noreferrer" class="hover:text-gray-800">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="currentColor" viewBox="0 0 24 24">
-            <path
-              d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.41 7.84 10.94.57.11.78-.25.78-.55v-2.17c-3.19.69-3.86-1.39-3.86-1.39-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.27-5.23-5.66 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 015.74 0c2.2-1.5 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.73.8 1.18 1.82 1.18 3.07 0 4.4-2.69 5.37-5.25 5.66.42.37.78 1.1.78 2.23v3.31c0 .31.21.67.79.55A10.5 10.5 0 0023.5 12C23.5 5.73 18.27.5 12 .5z" />
-          </svg>
-          <span class="ml-1">GitHub</span>
-        </a>
-      </div>
-    </div>
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-white border-t-4 border-blue-600 mt-20 shadow-xl text-center text-gray-600 py-10">
+    <p class="text-lg font-semibold">© 2024 Rohit Advocate. Powered by M Pawan Kumar.</p>
   </footer>
 
-
-  <!-- JavaScript -->
+  <!-- ==================== SCRIPT ==================== -->
   <script>
-    // // Toggle mobile menu visibility
-    const menuButton = document.getElementById('mobile-menu-button');
-    const closeButton = document.getElementById('close-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const backdrop = document.getElementById('menu-backdrop');
-    const menuIcon = document.getElementById('menu-icon');
+    document.addEventListener("DOMContentLoaded", () => {
+      const CONFIG = { debugMode:true, apiTimeout:30000 };
 
-    function openMenu() {
-      mobileMenu.classList.remove('-translate-x-full');
-      mobileMenu.classList.add('translate-x-0');
-      backdrop.classList.remove('hidden');
-      backdrop.classList.add('opacity-100');
-      menuIcon.classList.replace('fa-bars', 'fa-times');
-      menuButton.setAttribute('aria-expanded', 'true');
-    }
+      // Mobile Menu
+      const menuButton = document.getElementById('mobile-menu-button');
+      const closeButton = document.getElementById('close-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const backdrop = document.getElementById('menu-backdrop');
+      const menuIcon = document.getElementById('menu-icon');
 
-    function closeMenu() {
-      mobileMenu.classList.remove('translate-x-0');
-      mobileMenu.classList.add('-translate-x-full');
-      backdrop.classList.add('hidden');
-      backdrop.classList.remove('opacity-100');
-      menuIcon.classList.replace('fa-times', 'fa-bars');
-      menuButton.setAttribute('aria-expanded', 'false');
-    }
-
-    menuButton.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.contains('translate-x-0');
-      isOpen ? closeMenu() : openMenu();
-    });
-
-    closeButton.addEventListener('click', closeMenu);
-    backdrop.addEventListener('click', closeMenu);
-
-    // Helper function to POST JSON data and return JSON response
-    async function postData(url = "", data = {}) {
-      try {
-        const response = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
-        if (!response.ok) {
-          throw new Error(`Server error: ${response.status}`);
-        }
-        return await response.json();
-      } catch (error) {
-        return { error: error.message || "Unknown error" };
+      function openMobileMenu() {
+        mobileMenu.classList.remove('-translate-x-full');
+        mobileMenu.classList.add('translate-x-0');
+        backdrop.classList.remove('hidden');
+        menuIcon.classList.replace('fa-bars', 'fa-times');
       }
-    }
 
-    // Enhanced loading message with animation
-    function showLoading(element, message) {
-      element.innerHTML = `
-        <div class="flex items-center justify-center space-x-3 text-blue-600">
+      function closeMobileMenu() {
+        mobileMenu.classList.remove('translate-x-0');
+        mobileMenu.classList.add('-translate-x-full');
+        backdrop.classList.add('hidden');
+        menuIcon.classList.replace('fa-times', 'fa-bars');
+      }
+
+      menuButton.addEventListener('click', () => {
+        mobileMenu.classList.contains('translate-x-0') ? closeMobileMenu() : openMobileMenu();
+      });
+      closeButton.addEventListener('click', closeMobileMenu);
+      backdrop.addEventListener('click', closeMobileMenu);
+
+      // Helpers
+      function displayLoading(el, msg) {
+        el.innerHTML = `<div class="flex items-center justify-center space-x-3 text-blue-600">
           <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
-          <span class="font-semibold">${message}</span>
-        </div>
-      `;
-    }
-
-    // --- Explain My Contract Form Handling ---
-    const contractForm = document.getElementById("contract-form");
-    const contractResult = document.getElementById("contract-result");
-
-    contractForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      showLoading(contractResult, "Processing your contract...");
-      const contractText = document.getElementById("contract-text").value.trim();
-
-      if (!contractText) {
-        contractResult.innerHTML = '<div class="text-red-600 font-semibold">⚠️ Please paste your contract text.</div>';
-        return;
+          <span class="font-semibold">${msg}</span>
+        </div>`;
       }
 
-      // POST contract text to backend endpoint /api/contract/simplify
-      const res = await postData("/api/contract/simplify", { text: contractText });
-
-      if (res.error) {
-        contractResult.innerHTML = `<div class="text-red-600 font-semibold">❌ Error: ${res.error}</div>`;
-      } else {
-        contractResult.innerHTML = `<div class="text-green-600 font-semibold">✅ Contract Analysis:</div><div class="mt-3">${res.summary || "No summary returned."}</div>`;
-      }
-    });
-
-    // --- Content Safety Checker Form Handling ---
-    const contentSafetyForm = document.getElementById("content-safety-form");
-    const contentSafetyResult = document.getElementById("content-safety-result");
-
-    contentSafetyForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      showLoading(contentSafetyResult, "Checking content safety...");
-      const scriptText = document.getElementById("script-text").value.trim();
-
-      if (!scriptText) {
-        contentSafetyResult.innerHTML = '<div class="text-red-600 font-semibold">⚠️ Please paste your script or content.</div>';
-        return;
+      function showError(el, msg) {
+        el.innerHTML = `<div class="text-red-600 font-semibold">❌ ${msg}</div>`;
       }
 
-      // POST script text to backend endpoint /api/content/check
-      const res = await postData("/api/content/check", { text: scriptText });
-
-      if (res.error) {
-        contentSafetyResult.innerHTML = `<div class="text-red-600 font-semibold">❌ Error: ${res.error}</div>`;
-      } else {
-        contentSafetyResult.innerHTML = `<div class="text-green-600 font-semibold">🛡️ Safety Report:</div><div class="mt-3">${res.report || "No report returned."}</div>`;
-      }
-    });
-
-    // --- Helper Function for POST Request ---
-    const invoiceForm = document.getElementById("invoice-form");
-    const invoiceResult = document.getElementById("invoice-result");
-
-    invoiceForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      showLoading(invoiceResult, "Generating your invoice...");
-
-      const brand = document.getElementById("brand-name").value.trim();
-      const service = document.getElementById("service-desc").value.trim();
-      const amount = parseFloat(document.getElementById("amount").value);
-      const includeGST = document.getElementById("include-gst").checked;
-
-      if (!brand || !service || isNaN(amount) || amount < 0) {
-        invoiceResult.innerHTML = '<div class="text-red-600 font-semibold">⚠️ Please fill all required fields correctly.</div>';
-        return;
+      function showSuccess(el, title, content) {
+        el.innerHTML = `<div class="text-green-600 font-semibold">✅ ${title}</div>
+          <div class="mt-3 whitespace-pre-wrap font-mono">${content}</div>`;
       }
 
-      const res = await postData("/api/invoice/generate", {
-        brand,
-        service,
-        amount,
-        include_gst: includeGST,
+      async function postJSONData(url = "", data = {}) {
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), CONFIG.apiTimeout);
+          const res = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+            signal: controller.signal
+          });
+          clearTimeout(timeoutId);
+          if (!res.ok) throw new Error(`Server error: ${res.status}`);
+          return await res.json();
+        } catch (err) {
+          if (err.name === 'AbortError') return { error: "Request timeout" };
+          return { error: err.message || "Unknown error" };
+        }
+      }
+
+      // Contract Form
+      const contractForm = document.getElementById("contract-form");
+      const contractResult = document.getElementById("contract-result");
+
+      contractForm.addEventListener("submit", async e => {
+        e.preventDefault();
+        displayLoading(contractResult, "Analyzing your contract...");
+        const txt = document.getElementById("contract-text").value.trim();
+        if (!txt) { showError(contractResult, "Please paste your contract text."); return; }
+        // Replace below URL with your backend API
+        const res = await postJSONData("/api/contract/simplify", { text: txt });
+        res.error ? showError(contractResult, res.error) : showSuccess(contractResult, "Contract Analysis:", res.summary || "No summary returned.");
       });
 
-      if (res.error) {
-        invoiceResult.innerHTML = `<div class="text-red-600 font-semibold">❌ Error: ${res.error}</div>`;
-      } else {
-        const invoiceText = res.invoice_text || "No invoice returned.";
-        invoiceResult.innerHTML = `
-        <div class="text-green-600 font-semibold">📄 Invoice Generated:</div>
-        <div class="mt-3 whitespace-pre-wrap font-mono">${invoiceText}</div>
-        <button
-  id="download-pdf"
-  class="mt-4 inline-flex items-center bg-blue-600 text-white px-3 py-1.5 text-sm rounded-md hover:bg-blue-700 transition"
->
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
-  </svg>
- <p class="text-sm font-medium text-white bg-blue-600 px-3 py-1.5 rounded-md">Download Now</p>
-</button>
+      // Invoice Form
+      const invoiceForm = document.getElementById("invoice-form");
+      const invoiceResult = document.getElementById("invoice-result");
 
+      invoiceForm.addEventListener("submit", async e => {
+        e.preventDefault();
+        displayLoading(invoiceResult, "Creating your invoice...");
+        const brand = document.getElementById("brand-name").value.trim();
+        const service = document.getElementById("service-desc").value.trim();
+        const amount = parseFloat(document.getElementById("amount").value);
+        const gst = document.getElementById("include-gst").checked;
 
-      `;
+        if (!brand || !service || isNaN(amount) || amount < 0) {
+          showError(invoiceResult, "Please fill all fields correctly.");
+          return;
+        }
 
-        setTimeout(() => {
-          document.getElementById("download-pdf").addEventListener("click", () => {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            doc.setFont("courier", "normal");
-            doc.setFontSize(12);
-            doc.text(invoiceText, 10, 20);
-            const filename = `invoice_${brand.replace(/\s+/g, "_").toLowerCase()}.pdf`;
-            doc.save(filename);
-          });
-        }, 0);
-      }
-    });
+        let totalAmount = gst ? (amount * 1.18).toFixed(2) : amount.toFixed(2);
+        let invoiceContent = `Brand: ${brand}\nService: ${service}\nAmount: ₹${amount.toFixed(2)}\nGST Included: ${gst ? "Yes" : "No"}\nTotal Amount: ₹${totalAmount}`;
 
-    // You should define showLoading() and postData() elsewhere in your script.
+        invoiceResult.innerHTML = `<div class="text-green-600 font-semibold">📄 Invoice Generated:</div>
+          <div class="mt-3 whitespace-pre-wrap font-mono">${invoiceContent}</div>
+          <button id="download-pdf" class="mt-4 inline-flex items-center bg-blue-600 text-white px-3 py-1.5 text-sm rounded-md hover:bg-blue-700 transition">Download PDF</button>`;
 
+        document.getElementById("download-pdf").addEventListener("click", () => {
+          const { jsPDF } = window.jspdf;
+          const pdf = new jsPDF();
+          pdf.setFont("courier", "normal");
+          pdf.setFontSize(12);
+          pdf.text(invoiceContent, 10, 20);
+          pdf.save(`invoice_${brand.replace(/\s+/g, "_").toLowerCase()}.pdf`);
+        });
+      });
 
-
-
-    // --- YouTube Policy Guard Form Handling ---
-    const policyGuardForm = document.getElementById("policy-guard-form");
-    const policyGuardResult = document.getElementById("policy-guard-result");
-
-    policyGuardForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      showLoading(policyGuardResult, "Fetching policy information...");
-      const question = document.getElementById("policy-question").value.trim();
-
-      if (!question) {
-        policyGuardResult.innerHTML = '<div class="text-red-600 font-semibold">⚠️ Please enter your question.</div>';
-        return;
-      }
-
-      // POST question to backend endpoint /api/youtube/policy
-      const res = await postData("/api/youtube/policy", { question });
-
-      if (res.error) {
-        policyGuardResult.innerHTML = `<div class="text-red-600 font-semibold">❌ Error: ${res.error}</div>`;
-      } else {
-        policyGuardResult.innerHTML = `<div class="text-green-600 font-semibold">🎯 Policy Explanation:</div><div class="mt-3">${res.answer || "No answer returned."}</div>`;
-      }
-    });
-
-    // --- Ask Rohit Anything (AMA) Form Handling ---
-    const amaForm = document.getElementById("ama-form");
-    const amaResult = document.getElementById("ama-result");
-
-    amaForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      showLoading(amaResult, "Rohit is thinking...");
-      const question = document.getElementById("ama-question").value.trim();
-
-      if (!question) {
-        amaResult.innerHTML = '<div class="text-red-600 font-semibold">⚠️ Please enter your question.</div>';
-        return;
-      }
-
-      // POST question to backend endpoint /api/ama/ask
-      const res = await postData("/api/ama/ask", { question });
-
-      if (res.error) {
-        amaResult.innerHTML = `<div class="text-red-600 font-semibold">❌ Error: ${res.error}</div>`;
-      } else {
-        amaResult.innerHTML = `<div class="text-blue-600 font-semibold">💬 Rohit's Answer:</div><div class="mt-3">${res.answer || "No answer returned."}</div>`;
-      }
     });
   </script>
 </body>
-
 </html>

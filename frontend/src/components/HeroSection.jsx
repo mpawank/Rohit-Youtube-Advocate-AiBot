@@ -1,29 +1,32 @@
 import React from "react";
-import heroImage from "../assets/hero.png"; // rename your image file to hero.png and place it in /src/assets
+import heroImage from "../assets/hero.png";
+import "./HeroSection.css"; // rename your image file to hero.png and place it in /src/assets
 
 const HeroSection = () => {
   return (
-    <section className="flex flex-col md:flex-row items-center justify-between gap-8 py-12">
-      <div className="flex-1">
-        <h1 className="text-4xl font-bold mb-4 text-gray-800">
+    <section className="hero-container">
+      <div className="hero-content">
+        <h1 className="hero-title">
           Welcome to Advocate AI Bot
         </h1>
-        <p className="text-lg text-gray-600 mb-6">
+        <p className="hero-description">
           Simplify your YouTube legal journey. Get contract explanations,
           content safety checks, invoices, and instant answers.
         </p>
         <a
           href="/contract-explainer"
-          className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition"
+          className="hero-cta-button"
         >
           Get Started
         </a>
       </div>
-      <div className="flex-1">
+      <div className="hero-visual">
         <img
           src={heroImage}
           alt="Hero"
-          className="w-full h-auto rounded-lg shadow-lg"
+
+          className="hero-image"
+
         />
       </div>
     </section>

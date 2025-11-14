@@ -1,126 +1,32 @@
-# LEARN.md
+# 📘 LEARN.md - YouTube Legal Advisor Learning Hub
 
-Welcome to the learning and documentation hub for the Youtube Legal Advisor project!
-
----
-
-## 📚 Learning Notes
-
-Document what you learn as you work on this project. This can include:
-
-- Key concepts
-- Gotchas
-- Useful resources
-- Troubleshooting steps
+Welcome to the comprehensive learning and documentation center for the YouTube Legal Advisor project!
 
 ---
 
-## 📝 Project Documentation
+## 📚 Learning Notes & Knowledge Base
 
-Use this section to document:
+Document your learning journey and technical discoveries:
 
-- Project architecture
-- Design decisions
-- API endpoints
-- Component structure
-- Any other technical details
+### 🔍 Key Concepts Documented
+- **Vector Database Operations** - FAISS implementation for legal document search
+- **RAG Pipeline Architecture** - Retrieval-Augmented Generation for legal Q&A
+- **API Integration Patterns** - Flask/FastAPI backend with React frontend
+- **Content Safety Analysis** - Automated policy compliance checking
 
----
+### ⚠️ Common Gotchas & Solutions
+- Vector embedding dimension mismatches
+- CORS configuration for local development
+- PDF text extraction encoding issues
+- API rate limiting and error handling
 
-## 💡 Tips & Tricks
-
-Share helpful tips, shortcuts, or best practices for working on this codebase.
-
----
-
-## 🛠️ How to Contribute to LEARN.md
-
-- Add new sections as needed.
-- Keep documentation up to date as the project evolves.
-- Use clear, concise language.
+### 📖 Learning Resources
+- [FAISS Official Documentation](https://github.com/facebookresearch/faiss)
+- [React + Vite Best Practices](https://vitejs.dev/guide/)
+- [Flask API Development Guide](https://flask.palletsprojects.com/)
 
 ---
 
-## ⚙️ Tech Stack Summary
+## 📝 Project Architecture Documentation
 
-| Area        | Technology Used             |
-|-------------|-----------------------------|
-| Frontend    | React (with Vite)           |
-| Styling     | Likely Tailwind CSS         |
-| Backend     | Python (Flask or FastAPI)   |
-| Vector DB   | FAISS for semantic search   |
-
----
-
-## 🌐 Frontend (React + Vite)
-
-This project uses **React with Vite** for fast bundling.
-
-### Key Concepts:
-- Components under `/src/components`
-- Page-based routing via `/src/pages`
-- Entry point: `main.jsx` and `App.jsx`
-
-### Resources:
-- 📘 [React Official Docs](https://reactjs.org/docs/getting-started.html)
-- 🚀 [Vite Guide](https://vitejs.dev/guide/)
-- 🎨 [Tailwind CSS Docs](https://tailwindcss.com/docs)
-
----
-
-## 🧠 Backend (Python + FAISS)
-
-The backend uses **Flask** or **FastAPI** for API and **FAISS** for vector search.
-
-### Key Files:
-- `main.py`: Starts the server and handles API routes
-- `embeddings.py`: Handles vector DB and similarity search
-
-### Resources:
-- 🧬 [Flask Docs](https://flask.palletsprojects.com/)
-- ⚡ [FastAPI Docs](https://fastapi.tiangolo.com/)
-- 🔍 [FAISS Docs (Facebook AI)](https://github.com/facebookresearch/faiss)
-
----
-
-## 🚀 Tutorials & Starters
-
-- [React + Vite Starter](https://vitejs.dev/guide/)
-- [FAISS Starter Example](https://github.com/facebookresearch/faiss/wiki/Getting-started)
-- [Python FastAPI Crash Course](https://www.youtube.com/watch?v=0sOvCWFmrtA)
-
----
-
-## ✅ Best Practices
-
-- Keep React components modular
-- Write clean APIs (use FastAPI’s `pydantic` if applicable)
-- Document new endpoints in this file
-- Keep `embeddings.py` optimized for vector performance
-- Use `.env` for API keys and secrets (never commit them)
-
----
-
-## 🔗 Useful Links
-
-- 🧠 [OpenAI API Docs](https://platform.openai.com/docs/)
-- 🛠️ [GitHub Markdown Guide](https://www.markdownguide.org/basic-syntax/)
-- 🌐 [MDN JavaScript Docs](https://developer.mozilla.org/en-US/)
-
----
-
-## 📬 Contribute to LEARN.md
-
-Please update this file if:
-- You fix a bug and discover a cause
-- You build a new feature and want to help others understand
-- You find a great resource
-
----
-
-Let's make this project welcoming and easy to learn for everyone! 💡
-
-
----
-
-Happy learning and building! 🚀
+### 🏗️ System Architecture Overview

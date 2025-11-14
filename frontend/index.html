@@ -3,15 +3,16 @@
   <head>
     <meta charset="UTF-8" />
 
-    <!-- Favicon and App Icons -->
-    <link rel="icon" href="/frontend/src/assets/favicon.png" type="image/png" />
+    <!-- ========== FAVICON & APP ICONS ========== -->
+    <!-- 🎯 Primary application icon for browser and mobile devices -->
+    <link rel="icon" href="/favicon.png" type="image/png" />
 
-
-    <!-- Viewport and Theme -->
+    <!-- ========== VIEWPORT & THEME CONFIGURATION ========== -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#06b6d4" />
 
-    <!-- SEO Meta Tags -->
+    <!-- ========== SEO META TAGS ========== -->
+    <!-- 🚀 Primary SEO optimization for search engine visibility -->
     <title>
       YouTube Advisor - AI-Powered Legal Assistant for Content Creators
     </title>
@@ -27,7 +28,8 @@
     <meta name="robots" content="index, follow" />
     <meta name="language" content="English" />
 
-    <!-- Open Graph / Facebook -->
+    <!-- ========== OPEN GRAPH META TAGS ========== -->
+    <!-- 📱 Social media sharing optimization -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="#" />
     <meta
@@ -44,7 +46,8 @@
     <meta property="og:site_name" content="YouTube Advisor" />
     <meta property="og:locale" content="en_US" />
 
-    <!-- Twitter -->
+    <!-- ========== TWITTER CARD META TAGS ========== -->
+    <!-- 🐦 Twitter-specific sharing optimization -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://youtube-advisor.com/" />
     <meta
@@ -58,49 +61,53 @@
     <meta property="twitter:image" content="/twitter-image.png" />
     <meta property="twitter:creator" content="@YouTubeAdvisor" />
 
-    <!-- Canonical URL -->
+    <!-- ========== CANONICAL URL ========== -->
+    <!-- 🔗 Prevent duplicate content issues -->
     <link rel="canonical" href="https://youtube-advisor.com/" />
 
-    <!-- Preconnect for Performance -->
+    <!-- ========== PERFORMANCE OPTIMIZATIONS ========== -->
+    <!-- ⚡ Preconnect for faster external resource loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Google Fonts -->
+    <!-- ========== GOOGLE FONTS ========== -->
+    <!-- 🎨 Typography system using Inter font family -->
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Structured Data (JSON-LD) -->
+    <!-- ========== STRUCTURED DATA (JSON-LD) ========== -->
+    <!-- 📊 Schema.org markup for search engine understanding -->
     <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "YouTube Advisor",
-        "description": "AI-powered legal assistant for YouTube content creators",
-        "url": "https://youtube-advisor.com",
-        "applicationCategory": "LegalService",
-        "operatingSystem": "Web",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "name": "YouTube Advisor",
+          "description": "AI-powered legal assistant for YouTube content creators",
+          "url": "https://youtube-advisor.com",
+          "applicationCategory": "LegalService",
+          "operatingSystem": "Web",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+          "creator": { "@type": "Organization", "name": "YouTube Advisor Team" },
+          "featureList": ["Contract Analysis", "Content Safety Checks", "Automated Invoice Generation", "Legal Question Answering", "Policy Review"]
         },
-        "creator": {
-          "@type": "Organization",
-          "name": "YouTube Advisor Team"
-        },
-        "featureList": [
-          "Contract Analysis",
-          "Content Safety Checks",
-          "Automated Invoice Generation",
-          "Legal Question Answering",
-          "Policy Review"
-        ]
-      }
+        {
+          "@type": "SoftwareApplication",
+          "name": "YouTube Advisor",
+          "operatingSystem": "Web",
+          "applicationCategory": "BusinessApplication",
+          "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "150" },
+          "offers": { "@type": "Offer", "price": "0" }
+        }
+      ]
+    }
     </script>
 
-    <!-- Additional SEO Tags -->
+    <!-- ========== ADDITIONAL SEO TAGS ========== -->
+    <!-- 📱 Mobile web app configuration -->
     <meta name="application-name" content="YouTube Advisor" />
     <meta name="apple-mobile-web-app-title" content="YouTube Advisor" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -108,37 +115,29 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="mobile-web-app-capable" content="yes" />
 
-    <!-- Security Headers -->
+    <!-- ========== SECURITY HEADERS ========== -->
+    <!-- 🛡️ Security enhancements via meta tags -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="X-Frame-Options" content="DENY" />
     <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
 
-    <!-- Performance Hints -->
+    <!-- ========== PERFORMANCE HINTS ========== -->
+    <!-- ⚡ DNS prefetching for additional performance gains -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com" />
     <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+
+    <!-- 🎨 DEBUG: Head section configuration complete -->
   </head>
+
   <body>
+    <!-- ========== REACT APPLICATION ROOT ========== -->
+    <!-- ⚛️ React application mount point -->
     <div id="root"></div>
+
+    <!-- ========== MAIN APPLICATION SCRIPT ========== -->
+    <!-- 🚀 Vite-powered React application entry point -->
     <script type="module" src="/src/main.jsx"></script>
 
-    <!-- Schema.org for Local Business (if applicable) -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "YouTube Advisor",
-        "operatingSystem": "Web",
-        "applicationCategory": "BusinessApplication",
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.8",
-          "reviewCount": "150"
-        },
-        "offers": {
-          "@type": "Offer",
-          "price": "0"
-        }
-      }
-    </script>
+    <!-- 🎨 DEBUG: Body section configuration complete -->
   </body>
 </html>
